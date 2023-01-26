@@ -1,0 +1,34 @@
+#! /usr/bin/env python3
+
+'''
+The above code is used to reverse search the image and return the result image page url.
+It takes multiple argument and return the single page url.It support both remote url and local path of an image.
+It searches one by one and open the reult url in the browser one by one
+
+'''
+
+
+import sys
+import json
+import requests
+import subprocess
+from concurrent.futures import ThreadPoolExecutor
+
+image_paths = sys.argv[1:]
+search_url = 'https://yandex.com/images/search'
+
+def search_image(image_path):
+    if image_path.startswith("http"):
+        img_search_url = search_url + '?' + 'rpt=imageview&'+f'url={image_path}'
+    else:
+        files = {'upfile': ('blob', open(image_path, 'rb'), 'image/jpeg')}
+        params = {'rpt': 'imageview', 'format': 'json', 'request': '{"blocks":[{"block":"b-page_type_search-by-image__link"}]}'}
+        response = requests.post(search_url, params=params, files=files)
+        query_string = json.loads(response.content)['blocks'][0]['params']['url']
+        img_search_url = search_url + '?' + query_string
+    subprocess.run(["xdg-open", img_search_url])
+
+with ThreadPoolExecutor() as executor:
+    results = [executor.submit(search_image, image_path) for image_path in image_paths]
+    for f in results:
+        f.result()

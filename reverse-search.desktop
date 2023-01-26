@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+Actions=ReverseSearch
+ServiceTypes=KonqPopupMenu/Plugin,image/*
+X-KDE-StartupNotify=false
+X-KDE-Priority=TopLevel
+
+[Desktop Action ReverseSearch]
+Exec=reverse-search %U
+Name=Reverse Image Search
+Icon=/usr/share/pixmaps/reverse-search.png
