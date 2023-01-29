@@ -1,4 +1,4 @@
-# This program reverse search the image  through yandex.com and output the search result in the default-browser using xdg-open,
+# This program reverse search the image  through yandex.com and output the search result in the default-browser.,
 
 ## Install:
 --------

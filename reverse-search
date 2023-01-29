@@ -6,8 +6,6 @@ It takes multiple argument and return the single page url.It support both remote
 It searches one by one and open the reult url in the browser one by one
 
 '''
-
-
 import sys
 import json
 import requests
@@ -26,7 +24,9 @@ def search_image(image_path):
         response = requests.post(search_url, params=params, files=files)
         query_string = json.loads(response.content)['blocks'][0]['params']['url']
         img_search_url = search_url + '?' + query_string
-    subprocess.run(["xdg-open", img_search_url])
+    subprocess.Popen(["nohup", "python3", "-c", f"import webbrowser; webbrowser.open(\"{img_search_url}\", new=2)"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
 
 with ThreadPoolExecutor() as executor:
     results = [executor.submit(search_image, image_path) for image_path in image_paths]
