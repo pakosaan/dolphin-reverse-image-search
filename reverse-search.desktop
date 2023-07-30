@@ -8,4 +8,5 @@ X-KDE-Priority=TopLevel
 [Desktop Action ReverseSearch]
 Exec=reverse-search %U
 Name=Reverse Image Search
+Name[nl]=Zoeken naar afbeelding
 Icon=/usr/share/pixmaps/reverse-search.png
